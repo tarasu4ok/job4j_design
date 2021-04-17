@@ -13,14 +13,10 @@ public class EvenIt implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        while (index < numbers.length) {
-            if (numbers[index] % 2 == 0) {
-                return true;
-            } else {
-                index++;
-            }
+        while (index < numbers.length && numbers[index] % 2 != 0) {
+            index++;
         }
-        return false;
+        return index < numbers.length;
     }
 
     @Override
