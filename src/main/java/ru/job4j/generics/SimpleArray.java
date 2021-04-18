@@ -18,22 +18,22 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
-        Objects.checkIndex(index, data.length);
+        Objects.checkIndex(index, count);
         data[index] = model;
     }
 
     public void remove(int index) {
-        Objects.checkIndex(index, data.length);
+        Objects.checkIndex(index, count);
         System.arraycopy(data, index + 1, data, index, count - index);
     }
 
     public T get(int index) {
-        Objects.checkIndex(index, data.length);
+        Objects.checkIndex(index, count);
         return data[index];
     }
 
     public int getLength() {
-         return data.length;
+         return count;
     }
 
     @Override

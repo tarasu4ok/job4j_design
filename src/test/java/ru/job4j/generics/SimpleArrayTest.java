@@ -59,16 +59,23 @@ public class SimpleArrayTest {
         simpleArray.add(2);
         simpleArray.add(3);
         Iterator<Integer> iterator = simpleArray.iterator();
-        assertThat(iterator.hasNext(), is(true));
+        assertTrue(iterator.hasNext());
         assertThat(iterator.next(), is(1));
-        assertThat(iterator.hasNext(), is(true));
+        assertTrue(iterator.hasNext());
         assertThat(iterator.next(), is(2));
-        assertThat(iterator.hasNext(), is(true));
+        assertTrue(iterator.hasNext());
         assertThat(iterator.next(), is(3));
-        assertThat(iterator.hasNext(), is(true));
-        assertNull(iterator.next());
-        assertThat(iterator.hasNext(), is(true));
-        assertNull(iterator.next());
-        assertThat(iterator.hasNext(), is(false));
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenAdd1AndMake2TimesNextThenNoSuchElementException() {
+        SimpleArray<Integer> simpleArray = new SimpleArray<>(5);
+        simpleArray.add(1);
+        Iterator<Integer> iterator = simpleArray.iterator();
+        assertTrue(iterator.hasNext());
+        assertThat(iterator.next(), is(1));
+        assertFalse(iterator.hasNext());
+        iterator.next();
     }
 }
