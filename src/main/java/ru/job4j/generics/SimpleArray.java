@@ -25,6 +25,7 @@ public class SimpleArray<T> implements Iterable<T> {
     public void remove(int index) {
         Objects.checkIndex(index, count);
         System.arraycopy(data, index + 1, data, index, count - index);
+        count--;
     }
 
     public T get(int index) {
@@ -32,7 +33,7 @@ public class SimpleArray<T> implements Iterable<T> {
         return data[index];
     }
 
-    public int getLength() {
+    public int size() {
          return count;
     }
 
@@ -51,7 +52,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return count < array.getLength();
+            return count < array.size();
         }
 
         @Override

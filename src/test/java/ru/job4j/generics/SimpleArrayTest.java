@@ -27,6 +27,7 @@ public class SimpleArrayTest {
         simpleArray.remove(1);
         assertThat(1, is(simpleArray.get(0)));
         assertThat(3, is(simpleArray.get(1)));
+        assertThat(2, is(simpleArray.size()));
     }
 
     @Test
