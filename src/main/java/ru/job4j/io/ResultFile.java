@@ -12,9 +12,9 @@ public class ResultFile {
                         .append(j)
                         .append(" = ")
                         .append(i * j)
-                        .append("\n");
+                        .append(System.lineSeparator());
             }
-            stringBuilder.append("\n");
+            stringBuilder.append(System.lineSeparator());
         }
 
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
