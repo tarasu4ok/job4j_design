@@ -54,4 +54,15 @@ public class SimpleArrayTest {
         array.add("second");
         it.next();
     }
+
+    @Test
+    public void whenAddAndResize() {
+        SimpleArray<String> array = new SimpleArray<>(2);
+        array.add("first");
+        array.add("second");
+        array.add("third");
+        assertThat(array.get(0), is("first"));
+        assertThat(array.get(1), is("second"));
+        assertThat(array.get(2), is("third"));
+    }
 }

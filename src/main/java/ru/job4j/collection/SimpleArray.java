@@ -3,12 +3,17 @@ package ru.job4j.collection;
 import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
+    private static final int DEFAULT_SIZE = 5;
     private Object[] container;
     private int count = 0;
     int modCount = 0;
 
     public SimpleArray() {
-        this.container = new Object[5];
+        this.container = new Object[DEFAULT_SIZE];
+    }
+
+    public SimpleArray(int size) {
+        this.container = new Object[size];
     }
 
     public T get(int index) {
