@@ -2,6 +2,7 @@ package ru.job4j.collection.list;
 
 import ru.job4j.generics.SimpleArray;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public void add(E value) {
         Node<E> tmp = last;
-        Node<E> newNode = new Node<E>(value, tmp, null);
+        Node<E> newNode = new Node<>(value, tmp, null);
         last = newNode;
         if (tmp == null) {
             first = newNode;
@@ -41,19 +42,16 @@ public class SimpleLinkedList<E> implements List<E> {
         return current.value;
     }
 
-    public int getSize() {
-        return size;
-    }
-
     @Override
     public Iterator<E> iterator() {
-        return new SimpleLinkedListIterator<E>(this);
+        return new SimpleLinkedListIterator<>(this);
     }
 
     public class SimpleLinkedListIterator<E> implements Iterator<E> {
         SimpleLinkedList<E> simpleLinkedList;
         Node<E> current;
         int count = 0;
+        int expectedModCount = modCount;
 
         public SimpleLinkedListIterator(SimpleLinkedList<E> simpleLinkedList) {
             this.simpleLinkedList = simpleLinkedList;
@@ -69,6 +67,9 @@ public class SimpleLinkedList<E> implements List<E> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
             if (count == 0) {
                 current = simpleLinkedList.first;
             } else {
@@ -77,15 +78,5 @@ public class SimpleLinkedList<E> implements List<E> {
             count++;
             return current.value;
         }
-    }
-
-    public static void main(String[] args) {
-        SimpleLinkedList<String> simpleLinkedList = new SimpleLinkedList<>();
-        simpleLinkedList.add("A");
-        simpleLinkedList.add("B");
-        simpleLinkedList.add("C");
-        System.out.println(simpleLinkedList.get(0));
-        System.out.println(simpleLinkedList.get(1));
-        System.out.println(simpleLinkedList.get(2));
     }
 }
