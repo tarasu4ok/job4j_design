@@ -1,7 +1,5 @@
 package ru.job4j.collection.list;
 
-import ru.job4j.generics.SimpleArray;
-
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -30,9 +28,6 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        if (first == null) {
-            return null;
-        }
         int i = 0;
         Node<E> current = first;
         while (i != index) {
@@ -44,13 +39,12 @@ public class SimpleLinkedList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new SimpleLinkedListIterator<>(this);
+        return new SimpleLinkedListIterator(this);
     }
 
-    public class SimpleLinkedListIterator<E> implements Iterator<E> {
+    public class SimpleLinkedListIterator implements Iterator<E> {
         SimpleLinkedList<E> simpleLinkedList;
-        Node<E> current;
-        int count = 0;
+        Node<E> current = first;
         int expectedModCount = modCount;
 
         public SimpleLinkedListIterator(SimpleLinkedList<E> simpleLinkedList) {
@@ -59,7 +53,7 @@ public class SimpleLinkedList<E> implements List<E> {
 
         @Override
         public boolean hasNext() {
-            return count < simpleLinkedList.size;
+            return current != null;
         }
 
         @Override
@@ -70,13 +64,9 @@ public class SimpleLinkedList<E> implements List<E> {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            if (count == 0) {
-                current = simpleLinkedList.first;
-            } else {
-                current = current.next;
-            }
-            count++;
-            return current.value;
+            E value = current.value;
+            current = current.next;
+            return value;
         }
     }
 }
