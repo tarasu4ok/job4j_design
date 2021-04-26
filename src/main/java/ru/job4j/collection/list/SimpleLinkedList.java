@@ -39,34 +39,27 @@ public class SimpleLinkedList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new SimpleLinkedListIterator(this);
-    }
+        return new Iterator<>() {
+            Node<E> current = first;
+            int expectedModCount = modCount;
 
-    public class SimpleLinkedListIterator implements Iterator<E> {
-        SimpleLinkedList<E> simpleLinkedList;
-        Node<E> current = first;
-        int expectedModCount = modCount;
-
-        public SimpleLinkedListIterator(SimpleLinkedList<E> simpleLinkedList) {
-            this.simpleLinkedList = simpleLinkedList;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        @Override
-        public E next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
+            @Override
+            public boolean hasNext() {
+                return current != null;
             }
-            if (expectedModCount != modCount) {
-                throw new ConcurrentModificationException();
+
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                E value = current.value;
+                current = current.next;
+                return value;
             }
-            E value = current.value;
-            current = current.next;
-            return value;
-        }
+        };
     }
 }
