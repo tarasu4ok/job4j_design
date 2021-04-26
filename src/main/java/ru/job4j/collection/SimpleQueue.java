@@ -8,6 +8,9 @@ public class SimpleQueue<T> {
 
     public T poll() {
         if (sizeIn == 0 || sizeOut != 0) {
+            if (sizeOut != 0) {
+                sizeOut--;
+            }
             return out.pop();
         }
         for (int i = 0; i < sizeIn; i++) {
