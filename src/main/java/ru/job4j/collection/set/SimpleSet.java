@@ -32,13 +32,4 @@ public class SimpleSet<T> implements Set<T> {
     public Iterator<T> iterator() {
         return set.iterator();
     }
-
-    public static void main(String[] args) {
-        HashSet<Integer> set = new HashSet<>();
-        set.add(null);
-        set.add(1);
-        for (Integer el:set) {
-            System.out.println(el == null);
-        }
-    }
 }
