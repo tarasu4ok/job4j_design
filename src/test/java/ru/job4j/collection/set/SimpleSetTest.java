@@ -1,6 +1,11 @@
 package ru.job4j.collection.set;
 
 import org.junit.Test;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class SimpleSetTest {
@@ -27,5 +32,22 @@ public class SimpleSetTest {
         assertTrue(set.add(null));
         assertTrue(set.contains(null));
         assertFalse(set.add(null));
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void whenGetIteratorAndGetNext() {
+        Set<Integer> set = new SimpleSet<>();
+        Iterator<Integer> it = set.iterator();
+        assertFalse(it.hasNext());
+        it.next();
+    }
+
+    @Test
+    public void whenAddAndGetIteratorAndGetNext() {
+        Set<Integer> set = new SimpleSet<>();
+        set.add(1);
+        Iterator<Integer> it = set.iterator();
+        assertTrue(it.hasNext());
+        assertThat(it.next(), is(1));
     }
 }

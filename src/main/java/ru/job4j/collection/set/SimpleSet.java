@@ -30,7 +30,7 @@ public class SimpleSet<T> implements Set<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return set.iterator();
     }
 
     public static void main(String[] args) {
