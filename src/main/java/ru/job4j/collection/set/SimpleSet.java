@@ -4,6 +4,7 @@ import ru.job4j.collection.SimpleArray;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class SimpleSet<T> implements Set<T> {
 
@@ -21,7 +22,7 @@ public class SimpleSet<T> implements Set<T> {
     @Override
     public boolean contains(T value) {
         for (int index = 0; index < set.size(); index++) {
-            if ((value == null && set.get(index) == null) || (value != null && value.equals(set.get(index)))) {
+            if (Objects.equals(value, set.get(index))) {
                 return true;
             }
         }
